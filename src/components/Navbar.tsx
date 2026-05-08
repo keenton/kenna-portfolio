@@ -132,7 +132,6 @@ export default function Navbar() {
                       onClick={() => setWorkOpen(false)}
                       style={{
                         display: "block",
-                        padding: "10px 20px",
                         color: "#ffffff",
                         textDecoration: "none",
                         fontFamily: "Open Sans, sans-serif",
