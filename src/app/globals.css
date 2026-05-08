@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f5efe3;
+  --cream: #FCFCF8;
   --dark-brown: #3A3517;
   --olive: #807900;
   --golden: #E09F3E;
@@ -15,12 +15,158 @@
   box-sizing: border-box;
 }
 
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 body {
   background-color: var(--cream);
   color: var(--dark-brown);
   font-family: 'Roboto', sans-serif;
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-block;
+  background-color: #3A3517;
+  color: #FCFCF8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: #524d20;
+  transform: scale(1.03);
+}
+
+/* Inverted primary button (light on dark bg) */
+.btn-primary-inverted {
+  display: inline-block;
+  background-color: #FCFCF8;
+  color: #3A3517;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 14px 40px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary-inverted:hover {
+  background-color: #e8e3d8;
+  transform: scale(1.03);
+}
+
+/* Secondary text button (underline style) */
+.btn-secondary-text {
+  display: inline-block;
+  background: none;
+  border: none;
+  border-bottom: 2px solid currentColor;
+  color: #3A3517;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0 0 2px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.btn-secondary-text:hover {
+  transform: scale(1.03);
+  opacity: 0.7;
+}
+
+/* Marquee scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
+}
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Case study sidebar layout */
+@media (min-width: 1024px) {
+  .case-study-toc-banner {
+    display: none;
+  }
+}
+@media (max-width: 1023px) {
+  .case-study-sidebar,
+  .case-study-sidebar-spacer {
+    display: none;
+  }
+}
+
+/* Underline mobile TOC anchor links */
+@media (max-width: 1023px) {
+  .case-study-toc-banner a {
+    text-decoration: underline !important;
+  }
+}
+
+/* Case study image-text responsive */
+@media (max-width: 768px) {
+  .cs-image-text {
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+  .cs-image-text img {
+    width: 100% !important;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+/* Dropdown fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.dropdown-menu {
+  animation: fadeIn 0.2s ease;
 }

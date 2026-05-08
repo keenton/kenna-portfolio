@@ -1,6 +1,7 @@
 export interface Section {
-  type: "heading" | "paragraph" | "image" | "image-grid" | "video" | "list" | "labeled-list" | "callout";
+  type: "heading" | "subheading" | "paragraph" | "image" | "image-grid" | "video" | "list" | "labeled-list" | "callout" | "stat-row" | "two-column" | "image-text" | "detail-grid" | "carousel";
   content?: string;
+  body?: string;
   items?: string[];
   src?: string;
   alt?: string;
@@ -16,9 +17,16 @@ export interface CaseStudy {
   title: string;
   subtitle: string;
   role?: string;
+  team?: string;
   platform?: string;
   focus?: string;
-  heroImage: string;
+  timeline?: string;
+  tools?: string[];
+  methods?: string[];
+  tags?: string[];
+  stats?: { value: string; label: string }[];
+  overview?: string;
+  heroImage?: string;
   heroAlt?: string;
   tableOfContents?: string[];
   sections: Section[];
@@ -1143,6 +1151,751 @@ export const caseStudies: CaseStudy[] = [
       },
       { type: "image", src: "/uploads/2023/11/Artboard-8_2@2x-1.png", alt: "Facebook redesign concept" },
     ],
+  },
+  {
+    slug: "domore-ticket-transfer",
+    title: "Ticket Transfer Redesign",
+    subtitle: "DoMORE — Event Ticketing Platform",
+    role: "UX Strategist",
+    team: "CEO, Engineer, Designer",
+    timeline: "1–2 weeks",
+    tools: ["Figma"],
+    tags: ["UX STRATEGY", "CX STRATEGY", "USER RESEARCH"],
+    overview:
+      "When someone transferred tickets to a friend, recipients landed on a page that raised more questions than it answered. We redesigned the transfer experience to build trust, reduce confusion, and protect one of DoMORE's most important acquisition channels.",
+    heroImage: "/uploads/2026/01/DoMore_Project_Image.png",
+    heroAlt: "DoMORE ticket transfer redesign — three phone screens showing the transfer flow",
+    tableOfContents: [
+      "Overview",
+      "Project Constraints",
+      "Research & Insights",
+      "Design Decisions",
+      "Impact",
+    ],
+    sections: [
+      { type: "heading", content: "Overview" },
+      {
+        type: "paragraph",
+        content: "Getting a free ticket should feel like a gift. For DoMORE users, it felt like a trap.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When someone transferred tickets to a friend, recipients landed on a page that raised more questions than it answered. Did they need to pay? Was the email even real? A lot of them tapped the event tile expecting to find their ticket details, got routed into a full account sign-up flow, entered their payment information, and still came out the other side with nothing to show for it.",
+      },
+      {
+        type: "paragraph",
+        content: "Some gave up and called support. Some just didn't go to the event.",
+      },
+      {
+        type: "paragraph",
+        content: "The flow worked technically. It just didn't work for the people using it.",
+      },
+      { type: "heading", content: "Project Constraints" },
+      {
+        type: "list",
+        items: [
+          "No changes to backend logic or transfer architecture.",
+          "Solution had to work for both account holders and non-account holders.",
+          "Limited engineering bandwidth.",
+          "Needed to integrate seamlessly with the existing design system.",
+        ],
+      },
+      { type: "heading", content: "Research & Insights" },
+      {
+        type: "paragraph",
+        content:
+          "We talked directly with people who had received transferred tickets to understand where things were going wrong. Four patterns kept coming up.",
+      },
+      {
+        type: "callout",
+        content: "\"I thought I had to pay.\"",
+        body: "There was nothing on the page that clearly communicated the ticket was a gift. Without that signal upfront, people assumed there was a catch. A lot of them hesitated or left before even trying.",
+      },
+      {
+        type: "callout",
+        content: "\"I wasn't sure it was legit.\"",
+        body: "The page mentioned picking up tickets at a box office, which wasn't a familiar concept for new DoMORE users. Without context or clear direction, picking the tickets up felt sketchy. People didn't trust that they would be able to find the location or that the tickets would be there if they did.",
+      },
+      {
+        type: "callout",
+        content: "\"I signed up and still couldn't find my tickets.\"",
+        body: "The event tile looked like it would show ticket details. When users tapped it, it launched the full DoMORE sign-up flow including payment. After going through all of that, they landed somewhere that had nothing to do with their ticket. That moment of betrayal was the biggest trust-breaker in the entire experience.",
+      },
+      {
+        type: "callout",
+        content: "\"I just gave up and called.\"",
+        body: "Even users who made it through the confusion could not find clear instructions for actually using their tickets. Support became the fallback.",
+      },
+      { type: "heading", content: "Design Decisions" },
+      {
+        type: "paragraph",
+        content: "Four specific changes addressed every failure point we found in research.",
+      },
+      {
+        type: "image-text",
+        src: "/uploads/2026/01/DoMore_GiftMockup.png",
+        alt: "Redesigned gifted ticket screen showing 'You've been gifted tickets!' headline",
+        label: "Decision #1: Lead with \"Gifted\" to set the right expectations immediately",
+        content:
+          "The original headline gave no real context for what the page was about. We changed it to a single word: \"Gifted.\" That one word immediately tells recipients that no payment is involved and that something good is coming their way.",
+        body: "We also trimmed the intro paragraph so the most important information surfaced faster. Less reading before understanding.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "The question \"what is this?\" needs to be answered in under a second. The headline gave the user a stronger understanding of what the tickets were and emphasized there is no payment needed.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        src: "/uploads/2026/01/DoMore_DD2.png",
+        alt: "Redesigned ticket claim screen showing 'How to claim your tickets' instructions above the fold",
+        label: "Decision #2: Get to \"how do I use these tickets?\" before anything else",
+        content:
+          "The most important question recipients had was buried below content that didn't help them. We moved the step-by-step pickup instructions into the first scroll, made it clear that only an ID and the confirmation email were needed, and added a short note calling out who the tickets were from.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "The page should follow what the user needs to know, not what the business wants to say first. Getting to the event was the whole point. Everything else came second.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        src: "/uploads/2026/01/DoMORE_DD3.png",
+        alt: "Redesigned event tile linking to event details instead of the sign-up flow",
+        label: "Decision #3: Fix the broken event tile interaction",
+        content:
+          "Users assumed the event tile would lead to the event details, but instead it launched into a sign-up flow. We removed the link to the sign up flow and replaced it with a link to the event details.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "Users who felt misled by the sign-up redirect reported the highest distrust. Fixing this was as much about brand integrity as it was about usability.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        src: "/uploads/2026/01/Domore_DD4.png",
+        alt: "Redesigned email showing sign-up promotion separated into its own block at the bottom",
+        label: "Decision #4: Separate task completion from product promotion",
+        content:
+          "The original page mixed ticket instructions with product promotion throughout, which created noise at exactly the wrong moment.",
+        body: "We pulled all the sign-up content into its own visually distinct block at the bottom of the page. Structurally separate, clearly labeled, and placed after the primary task was already complete.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "Users who finish their task successfully are much more open to hearing about a product than users still trying to figure out how to get into their event. The separation served the user and the business.",
+          },
+        ],
+      },
+      { type: "heading", content: "Impact" },
+      {
+        type: "paragraph",
+        content:
+          "The redesigned experience shipped within the project timeline and was approved without revision.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Formal post-launch metrics were not tracked for this specific flow, however support calls have significantly decreased from perspective DoMORE users. The design also resolved every failure point we uncovered in research. Recipients immediately understood the ticket was free. Pickup instructions were clear from the first scroll. The misleading sign-up redirect was gone. And promotional content finally had its own space, separate from the task at hand.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "If we had more time, we would have looked at tracking transfer completion rates and support ticket volume post-launch to validate the changes quantitatively. We also talked about whether a more personalized recipient experience could further strengthen that first impression for new users coming to DoMORE through a gifted ticket for the very first time.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The thing that stuck with me most from this project was how much a small moment of confusion at a high-trust point in someone's journey can ripple outward. Gifted tickets are how a lot of people meet DoMORE. Getting that experience right matters more than it might seem on the surface.",
+      },
+    ],
+    nextProject: {
+      name: "Building a Medical Information Platform",
+      href: "/work/medical-information-platform",
+      description: "UX Strategy, Information Architecture, Stakeholder Education",
+    },
+  },
+  {
+    slug: "medical-information-platform",
+    title: "Building a Medical Information Platform",
+    subtitle: "Pharmaceutical Client — Medical Information Website",
+    role: "Lead UX Designer",
+    team: "Developers, Client Medical Affairs, Legal",
+    timeline: "6 months",
+    tools: ["Figma", "FigJam", "Drupal"],
+    tags: ["UX STRATEGY", "INFORMATION ARCHITECTURE", "STAKEHOLDER EDUCATION"],
+    heroImage: "/uploads/2026/01/MI Mockup.png",
+    heroAlt: "Medical information website shown on desktop monitor and mobile phone",
+    tableOfContents: ["Overview", "The Challenge", "Research & Discovery", "Design Decisions", "Final Design", "Impact"],
+    sections: [
+      { type: "heading", content: "Overview" },
+      {
+        type: "paragraph",
+        content:
+          "A growing pharmaceutical company needed a medical information website. They had approved products on the market, compounds moving through their pipeline, and a medical affairs team actively supporting HCP relationships. What they did not have was a single, cohesive digital destination that brought all of that together. Their medical information lived across disconnected microsites and fragmented resources, and as the company continued to grow, that fragmentation was becoming harder to manage and harder for HCPs to navigate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This wasn't just a design project. It was an exercise in helping a client who had never built a website before understand what they actually needed, navigate what was legally possible, and end up with something scalable enough to grow as their company grew. I owned all of the UX from the first workshop through to the component library and CMS architecture.",
+      },
+      { type: "heading", content: "The Challenge" },
+      {
+        type: "paragraph",
+        content:
+          "The client came to us with an unclear goal, many stakeholders and almost no digital experience.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Their content lived in Word docs and PDFs scattered across email threads. Their stakeholders, primarily the medical information team and individual product teams, had strong opinions about what the site should look like, but those opinions were mostly pulled from competitor sites that looked professional on the surface and fell apart the moment you tried to use them.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They also wanted a user-friendly CMS that would allow them to easily add new resources or information to the website.",
+      },
+      { type: "heading", content: "Research & Discovery" },
+      {
+        type: "paragraph",
+        content:
+          "We ran a series of UX workshops with the full stakeholder group to surface what the site actually needed to do before we touched a single wireframe.",
+      },
+      {
+        type: "paragraph",
+        content: "Three things became clear quickly.",
+      },
+      {
+        type: "callout",
+        content: "Strict legal requirements",
+        body: "The legal and regulatory constraints shaped every single design decision. Nothing promotional could appear anywhere on the site. Prescribing information had to be clearly separated from anything that could be interpreted as a medical claim. Even the site search had to be scoped carefully to avoid surfacing content inappropriately to HCPs. Legal reviewed every component before development touched it.",
+      },
+      {
+        type: "callout",
+        content: "Differing stakeholder opinions",
+        body: "With 10 to 15 people across the medical information team and individual product teams in the room, alignment was a constant challenge. Everyone had opinions. Nobody had experience building a website. The wish list kept growing beyond what the budget could support and what the timeline could accommodate. Defining what the site actually needed to launch versus what could come later was one of the hardest problems we solved.",
+      },
+      {
+        type: "callout",
+        content: "Scalability anxiety",
+        body: "The client was a small but fast-growing company. They were terrified of building something that would be outdated or impossible to expand in six months. Every decision was filtered through \"but what happens when we have more products?\" Designing for where they were going, not just where they were, was a core tension throughout.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "To get everyone aligned, we brought a working sitemap directly into the stakeholder sessions. Rather than presenting it as a finished deliverable, we built it collaboratively in the room. Each node on the sitemap became a conversation. What lives on this page? Who owns it? What happens when a new product launches? Where does that content go? Seeing the structure of the site laid out visually, and being able to move things around in real time, gave stakeholders a mental model they could not get from a written brief or description alone.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "By the end of those sessions, the client wasn't just approving a sitemap. They understood why the site was structured the way it was and could confidently answer \"what happens when we grow\" themselves.",
+      },
+      {
+        type: "image",
+        src: "/uploads/2026/01/MISitemap2.png",
+        alt: "U.S. Medical High Level UX Discovery sitemap showing site structure across two phases",
+      },
+      { type: "heading", content: "Design Decisions" },
+      {
+        type: "image-text",
+        label: "1. Start with structure, not screens",
+        content:
+          "Before any wireframes, we built a full sitemap and information architecture that mapped every content type, approved product pages, pipeline information, HCP resources, medical inquiry forms, and news and updates, to a clear hierarchy.",
+        body: "This was the most important deliverable of the entire project. Without it, the client had no mental model for what they were building and no way to evaluate whether a design decision was right or wrong.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "A client who has never built a website cannot give useful feedback on a wireframe if they don't understand the structure underneath it. The sitemap gave us a shared language.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        label: "2. Design for the CMS, not just the page",
+        content:
+          "Because the client needed to manage and update their own content going forward, every component we designed had to work inside Drupal without a developer. That meant no one-off layouts, no components that only worked in one context, and no designs that required technical knowledge to maintain.",
+        body: "We modeled the CMS structure in parallel with the design system. Every content type, every field, and every editorial decision mapped to a Drupal component the client could control themselves.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "A site that looks great at launch but requires a developer to update every news post is not a good product. We were designing for their team's independence, not just the launch day.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        label: "3. Navigate legal constraints without sacrificing usability",
+        content:
+          "The legal team had strict requirements. Nothing promotional could appear on the site. Prescribing information had to be clearly separated from any content that could be interpreted as a medical claim. The site search, which was a new feature for this client, had to be scoped carefully so it wouldn't surface content inappropriately to HCPs.",
+        body: "Every component went through legal review before development. The medical information search was one of the most scrutinized. Because search results could surface content in unpredictable combinations, we had to demonstrate the concept to the legal team early and work through compliance requirements before a single line of code was written.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "In regulated industries, legal constraints are not obstacles to good design. They are part of the design problem. Working within them early meant fewer surprises later.",
+          },
+        ],
+      },
+      {
+        type: "image",
+        src: "/uploads/2026/01/MIUserFlow.png",
+        alt: "Medical Information Search user flow showing on landing, pulldown selection, and product selection states",
+      },
+      {
+        type: "image-text",
+        label: "4. Educate stakeholders through the process",
+        content:
+          "The client consistently referenced competitor sites with poor usability. Rather than simply overriding their preferences, we used those references as teaching moments. We walked them through specific usability issues, explained why certain patterns created confusion for HCPs, and showed how our approach solved the same problem more effectively.",
+        body: "When they pushed for features that were out of scope or not feasible within the budget, we reframed the conversation around what the site needed to do for their users and their team, not what it looked like on a competitor's homepage.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "A client who understands the reasoning behind a design decision is far more likely to trust it and advocate for it internally. Education was part of our deliverable.",
+          },
+        ],
+      },
+      {
+        type: "image-text",
+        label: "5. Build a lean component library that could scale",
+        content:
+          "With a limited development budget and no imagery, every component had to be purposeful and reusable. We structured the component library using atomic design principles, building from the smallest elements up so that every pattern could scale across the site without requiring custom work each time.",
+        body: "Scalability was a requirement from the start, not an afterthought. The client was growing and needed a system that could accommodate new products and content types without a redesign. A lean, well-structured component library made that possible.",
+        labeledItems: [
+          {
+            label: "Why this approach",
+            content:
+              "Atomic design gives a growing client something more valuable than a set of screens. It gives them a system they can build on. For a team that needed to manage and expand the site themselves, that foundation mattered more than any individual design decision we made.",
+          },
+        ],
+      },
+      {
+        type: "image-grid",
+        columns: 2,
+        images: [
+          { src: "/uploads/2026/01/Component Library 1.png", alt: "Header and main navigation component library showing desktop and mobile patterns" },
+          { src: "/uploads/2026/01/Component Library 2.png", alt: "Design system fundamentals including color palette, typography, spacing, and button components" },
+        ],
+      },
+      { type: "heading", content: "Final Design" },
+      { type: "subheading", content: "Home page" },
+      {
+        type: "image",
+        src: "/uploads/2026/01/MI Final Screen 1.png",
+        alt: "Medical information website homepage showing search, navigation, and resource cards",
+      },
+      { type: "subheading", content: "Congresses page" },
+      {
+        type: "image",
+        src: "/uploads/2026/01/MI Final Screen 2.png",
+        alt: "Congress locations page showing filterable grid of congress cards with city photography",
+      },
+      { type: "subheading", content: "Medical Writing Grants Page" },
+      {
+        type: "image",
+        src: "/uploads/2026/01/MI Final Screen 3.png",
+        alt: "Medical Writing Grants page showing therapeutic area table and download application button",
+      },
+      { type: "heading", content: "Impact" },
+      {
+        type: "paragraph",
+        content:
+          "The site launched on time and the client loved it. Within a year they came back to expand it, a strong signal that what we built was actually scalable and not just a one-time deliverable.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The medical affairs team could update content, add resources, and manage their product pages without involving a developer. The legal team had a clear, defensible framework for what appeared on the site and why. HCPs had a single organized destination for prescribing information and clinical resources instead of a PDF email chain.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a team that came to us not knowing what a sitemap was, that outcome is something we are genuinely proud of.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "If we had more time we would have loved to run usability testing with actual HCPs to validate the navigation and search experience. We also discussed expanding the search to be a sitewide search or a chatbot to assist users in locating resources, something the expanded engagement a year later gave us the chance to explore.",
+      },
+    ],
+    nextProject: {
+      name: "Usability Research",
+      href: "/work/usability-testing",
+      description: "Usability Testing, Accessibility, User Research",
+    },
+  },
+  {
+    slug: "usability-testing",
+    title: "Usability Research for a Cancer Treatment Support Website",
+    subtitle: "Large Pharmaceutical Company — Patient Website Evaluation",
+    role: "Lead UX Researcher, Moderator",
+    team: "UX Researchers, Client",
+    timeline: "3 months",
+    tools: ["Zoom", "Optimal Workshop"],
+    tags: ["USABILITY TESTING", "ACCESSIBILITY", "USER RESEARCH"],
+    tableOfContents: ["Overview", "The Challenge", "Research & Process", "Key Research Questions", "Key Findings", "Recommendations and Prioritization", "Impact"],
+    sections: [
+      { type: "heading", content: "Overview" },
+      {
+        type: "paragraph",
+        content:
+          "A large pharmaceutical company had already built a patient-facing website for a cancer treatment. Before they invested further in expanding it, they wanted to know one thing: was it actually working for the patients it was built for?",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We ran a moderated remote usability study with 10 patients and care partners to find out. What we uncovered went beyond usability issues. It revealed a fundamental mismatch between how the site presented the treatment experience and how patients were actually living it.",
+      },
+      { type: "subheading", content: "Study Details" },
+      {
+        type: "detail-grid",
+        labeledItems: [
+          {
+            label: "Participants",
+            content: "10 patients diagnosed with DLBCL and FL and care partners of patients diagnosed with DLBCL and FL",
+          },
+          {
+            label: "Format",
+            content: "Remote, one hour sessions with screen sharing",
+          },
+          {
+            label: "Devices",
+            content: "Mix of mobile and desktop",
+          },
+          {
+            label: "Team",
+            content: "One moderator and one to two note takers, client team observing",
+          },
+        ],
+      },
+      {
+        type: "image",
+        src: "/uploads/2026/01/Usability_Participants.png",
+        alt: "Study participant breakdown: 7 patients and 3 care partners interviewed",
+      },
+      { type: "heading", content: "The Challenge" },
+      {
+        type: "paragraph",
+        content:
+          "Recruiting and researching with relapsed cancer patients is not the same as running a standard usability study. Three things made this project specifically a challenge:",
+      },
+      {
+        type: "callout",
+        content: "1. An emotionally sensitive user population",
+        body: "These were not casual users browsing a website for fun. They were patients who had relapsed, were actively undergoing treatment, and were dealing with significant physical and emotional exhaustion. Every aspect of the research had to be designed with that reality in mind, from how we screened participants to how we worded questions during sessions to how long we asked them to stay engaged.",
+      },
+      {
+        type: "callout",
+        content: "2. An older demographic with varying digital literacy",
+        body: "The majority of participants were older adults who were not comfortable with technology. Walking them through screen sharing, keeping sessions on track, and separating their general digital frustrations from specific feedback about the site required constant calibration as a moderator. Some of their responses reflected broader unfamiliarity with websites rather than issues specific to this one, and distinguishing between the two was a key part of the synthesis work.",
+      },
+      {
+        type: "callout",
+        content: "3. Defining what success looked like for this audience",
+        body: "While efficiency and usability were important, what was equally important was meeting patients where they were emotionally. We wanted to ensure the site provided the right information at the right time, while being mindful of the reality of living with a relapsed diagnosis. That meant going beyond task completion and uncovering what it actually meant to spend a day in their shoes.",
+      },
+      { type: "heading", content: "Research & Process" },
+      {
+        type: "paragraph",
+        content:
+          "Recruitment was handled by a third party agency using a screener we developed to identify patients and care partners who were actively using or likely to use the treatment being studied.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Sessions were one hour long, conducted remotely via Zoom with screen sharing. We used Optimal Workshop to organize and synthesize findings across all 10 sessions, then compiled everything into a structured report covering user personas, key findings, and prioritized remediations on a high, medium, and low scale.",
+      },
+      { type: "heading", content: "Key Research Questions" },
+      {
+        type: "detail-grid",
+        labeledItems: [
+          {
+            label: "1. Is this website working for patients?",
+            content: "The most fundamental question. The site existed. But existing and working are two different things. We needed to know if patients could actually use it during one of the most difficult periods of their lives.",
+          },
+          {
+            label: "2. Can users access and understand their support and cost options?",
+            content: "Patient support programs and cost assistance are often the most important resources on a pharma site. If patients could not find them or trust them, the site was failing at its most critical job.",
+          },
+          {
+            label: "3. Are the resources useful and are users able to access them?",
+            content: "Downloads, videos, and reference materials are only useful if people can find them, open them, and understand them. We wanted to know if the content the team had invested in was actually reaching patients.",
+          },
+          {
+            label: "4. Can users navigate through the site?",
+            content: "A straightforward but essential question. Could patients get from where they were to where they needed to go without getting lost or giving up? Did they understand the navigation labels? Were the CTAs correctly predicting the users' next step through the site?",
+          },
+          {
+            label: "5. What are the most common topics users seek out?",
+            content: "We wanted to understand what users were searching for and if they matched our site analytics. This helped inform a larger information architecture update to the site.",
+          },
+          {
+            label: "6. Is this site working well in a mobile environment?",
+            content: "Patients are not always sitting at a desk when they need this information. They are in waiting rooms, infusion centers, and at home on the couch. We wanted to know whether the site held up on mobile where this audience was most likely to actually be using it, and whether the layout, text size, and tap targets were appropriate for older users on smaller screens.",
+          },
+        ],
+      },
+      { type: "subheading", content: "Moderator Guide" },
+      {
+        type: "carousel",
+        images: [
+          { src: "/uploads/2026/01/Usability_ModeratorGuide1.png", alt: "Moderator Guide page 1" },
+          { src: "/uploads/2026/01/Usability_ModeratorGuide2.png", alt: "Moderator Guide page 2" },
+          { src: "/uploads/2026/01/Usability_ModeratorGuide3.png", alt: "Moderator Guide page 3" },
+          { src: "/uploads/2026/01/Usability_ModeratorGuide4.png", alt: "Moderator Guide page 4" },
+        ],
+      },
+      { type: "heading", content: "Key Findings" },
+      {
+        type: "callout",
+        content: "Patients were exhausted and needed a resource for their care partners",
+        body: "The most consistent thing we heard across sessions was fatigue. Treatment is physically and emotionally draining and patients told us they did not always have the capacity to research and navigate on their own. What they needed was a clear, simple place to send a care partner, spouse, or family member to understand what was happening before, during, and after treatment.\n\nThe site was not built for that person. It was built for the patient. That gap was significant.",
+      },
+      {
+        type: "callout",
+        content: "The imagery was jarring and felt disconnected from reality",
+        body: "Every image on the site showed happy, smiling people. Patients who had relapsed and were going through treatment again did not see themselves in those images. Several participants mentioned there was an absence of patients with their care partners. A few also mentioned the lack of diversity in the imagery.",
+      },
+      {
+        type: "callout",
+        content: "The CRM and patient support program were confusing and distrusted",
+        body: "The site promoted a patient support program but did not explain it clearly enough for participants to understand what it was, who ran it, or what signing up would mean for their privacy. In addition, there was a separate CRM sign up that was sometimes connected to the patient support form and sometimes not, depending which CTA the user entered from. Having two disconnected sign ups without clear messaging were making users confused and skeptical of both. Users also mentioned that both forms felt like they asked for too much information and, specifically, the patient support form would take them too long to fill out.",
+      },
+      {
+        type: "image",
+        src: "/uploads/2026/01/Usability_Optimal.png",
+        alt: "Optimal Workshop affinity map showing participant findings grouped by theme",
+      },
+      { type: "heading", content: "Recommendations and Prioritization" },
+      {
+        type: "paragraph",
+        content:
+          "We structured our findings and recommendations on a high, medium, and low priority scale and presented them alongside direct user quotes and session observations so the client could see the evidence behind each one.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "High priority items included adding a dedicated care partner section, revisiting the imagery strategy to reflect the real emotional experience of patients, and redesigning the patient support program and CRM sign ups into a seamless, dynamic form experience.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The client took the findings to their internal team, made decisions about which recommendations to carry forward, and implemented changes based on our report.",
+      },
+      { type: "subheading", content: "Sample of output report" },
+      {
+        type: "carousel",
+        caption: "Some information redacted for client confidentiality purposes.",
+        images: [
+          { src: "/uploads/2026/01/Usability_Readout_1.png", alt: "Readout slide 1" },
+          { src: "/uploads/2026/01/Usability_Readout_3.png", alt: "Readout slide 3" },
+          { src: "/uploads/2026/01/Usability_Readout_4.png", alt: "Readout slide 4" },
+          { src: "/uploads/2026/01/Usability_Readout_5.png", alt: "Readout slide 5" },
+          { src: "/uploads/2026/01/Usability_Readout_6.png", alt: "Readout slide 6" },
+          { src: "/uploads/2026/01/Usability_Readout_7.png", alt: "Readout slide 7" },
+          { src: "/uploads/2026/01/Usability_Readout_8.png", alt: "Readout slide 8" },
+          { src: "/uploads/2026/01/Usability_Readout_9.png", alt: "Readout slide 9" },
+          { src: "/uploads/2026/01/Usability_Readout_10.png", alt: "Readout slide 10" },
+        ],
+      },
+      { type: "heading", content: "Impact" },
+      {
+        type: "paragraph",
+        content:
+          "The research gave the client something they did not have before: a direct, unfiltered window into how their patients were actually experiencing the site. The findings were specific enough to act on and prioritized clearly enough that the client could make decisions without ambiguity.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The care partner insight in particular reframed how the team thought about the site's audience. It shifted the conversation from \"is this website usable\" to \"who are we actually designing this for and are we meeting their needs.\"",
+      },
+      {
+        type: "paragraph",
+        content:
+          "That is the kind of finding that changes a product roadmap, not just a page.",
+      },
+      {
+        type: "paragraph",
+        content: "In the future, we look to continue working with the client team to pull through these updates.",
+      },
+    ],
+    nextProject: {
+      name: "Ticket Transfer Redesign",
+      href: "/work/domore-ticket-transfer",
+      description: "UX Design, CX Strategy, User Research",
+    },
+  },
+  {
+    slug: "accessibility-audit",
+    title: "Accessibility Audit for an HCP Web Platform",
+    subtitle: "Global Biopharmaceutical Company — WCAG A and AA Audit",
+    role: "Lead Accessibility Auditor",
+    tools: ["WCAG VPAT", "Evinced", "VoiceOver", "ANDI"],
+    timeline: "3–4 weeks",
+    tags: ["ACCESSIBILITY", "WCAG COMPLIANCE", "STAKEHOLDER EDUCATION"],
+    tableOfContents: ["Overview", "The Audit", "What We Found", "Accessibility Widgets", "Remediations and Prioritization", "Impact"],
+    sections: [
+      { type: "heading", content: "Overview" },
+      {
+        type: "paragraph",
+        content:
+          "A global R&D-driven biopharmaceutical company needed to understand whether their HCP-facing website met WCAG A and AA accessibility standards. They suspected there were issues. They did not know how many, how serious, or what it would take to fix them.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We ran an automated and manual audit, presented findings to stakeholders, and worked with the development team to prioritize and implement remediations.",
+      },
+      { type: "heading", content: "The Audit" },
+      {
+        type: "paragraph",
+        content:
+          "We ran two audits, one manual and one automated. For the manual audit, we used a blank Voluntary Product Accessibility Template (VPAT) to create an Accessibility Conformance Report (ACR) to audit the site. We only picked key pages with unique components to review. We ran the automated audit using Evinced to take a look at the entire site. Both audits looked at A and AA criteria and conformance.",
+      },
+      {
+        type: "detail-grid",
+        labeledItems: [
+          {
+            label: "Manual Audit Results",
+            content: "Supports: 11 criteria\nPartially supports: 13 criteria\nDoes not support: 16 criteria\nNot applicable: 15 criteria",
+          },
+          {
+            label: "Automated Audit Score",
+            content: "71%\nThe automated audit picked up a lot of code based issues such as alternative text missing and DOM order and structure.",
+          },
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Using both a manual and an automated audit helped us understand what accessibility errors were happening across the site. Together these numbers told a clear story. The site had meaningful accessibility gaps across both visual and technical dimensions.",
+      },
+      { type: "subheading", content: "Sample of accessibility conformance report" },
+      { type: "image", src: "/uploads/2026/01/Accessibility_VPAT.png", alt: "Sample accessibility conformance report (VPAT)" },
+      { type: "heading", content: "What We Found" },
+      { type: "subheading", content: "Alternative text was wrong in both directions." },
+      {
+        type: "paragraph",
+        content:
+          "In some places images had no alt text where descriptive text was needed. In others alt text was assigned to decorative images that should have been null. Both errors create problems for screen reader users: one leaves them without context, the other clutters their experience with irrelevant narration.",
+      },
+      { type: "subheading", content: "No closed captions or transcripts." },
+      {
+        type: "paragraph",
+        content:
+          "Any video or audio content on the site had no captions and no transcript alternatives. For users who are deaf or hard of hearing this meant that content simply did not exist for them.",
+      },
+      { type: "subheading", content: "Headings were out of order and incorrectly assigned." },
+      {
+        type: "paragraph",
+        content:
+          "Heading levels skipped, repeated, and appeared out of sequence throughout the site. For screen reader users who navigate by heading structure this makes a page feel like a document with no logical order. It is disorienting and time consuming to navigate.",
+      },
+      { type: "subheading", content: "Color contrast failures throughout." },
+      {
+        type: "paragraph",
+        content:
+          "Text and background color combinations across multiple sections of the site did not meet the minimum 4.5:1 contrast ratio for normal text and 3:1 for graphical elements and large text required for WCAG AA. Users with low vision or color blindness were affected across a significant portion of the site's content.",
+      },
+      { type: "subheading", content: "No skip to main content link." },
+      {
+        type: "paragraph",
+        content:
+          "Without a skip link, keyboard-only users and screen reader users are forced to tab through the entire navigation on every single page before reaching any content. On a site with a complex header this is a significant burden.",
+      },
+      { type: "subheading", content: "Screen reader read content out of order." },
+      {
+        type: "paragraph",
+        content:
+          "The underlying DOM structure did not match the visual layout in several places, causing screen readers to announce content in a sequence that made no logical sense. Users relying on assistive technology were getting a fundamentally different and confusing version of the page.",
+      },
+      { type: "subheading", content: "Automated Audit Results" },
+      { type: "image", src: "/uploads/2026/01/Automated_Report_2.png", alt: "Automated audit breakdown by issue severity and type" },
+      { type: "image", src: "/uploads/2026/01/Automated_Report_3.png", alt: "Automated audit issue type table" },
+      { type: "heading", content: "Accessibility Widgets" },
+      {
+        type: "paragraph",
+        content:
+          "Midway through the project, the client proposed a different solution. They had heard about accessibility overlay widgets, tools like AccessiBe that promise to make a site compliant with a single line of code, and wanted to know if adding one would resolve their issues.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It was an understandable instinct. Widgets are fast, cheap, and feel like a shortcut to compliance.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "While we understood where they were coming from, Accessibility overlay widgets do not fix the underlying code. They apply a surface layer that attempts to compensate for structural problems rather than resolving them. They are frequently ineffective for the users they claim to help. Many users of assistive technology actively disable them because they interfere with their existing tools. And they do not provide genuine WCAG compliance. They provide the appearance of it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We presented this directly to the client with specific evidence. We walked them through what the widget could and could not address from our audit findings. We showed them that the issues we found, incorrect DOM order, missing alt text, and broken heading hierarchy, were not the kind of problems an overlay could fix.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They agreed and we were able to move forward based on the actual audit findings.",
+      },
+      { type: "heading", content: "Remediations and Prioritization" },
+      {
+        type: "paragraph",
+        content:
+          "We structured our remediation recommendations by severity and grouped them by issue type so the development team could work through them systematically rather than jumping between unrelated fixes.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The client prioritized the highest severity issues for immediate remediation and is planning to address the remaining findings in future updates. Rather than an overwhelming list with no clear starting point, the audit gave the team a structured roadmap they could work through systematically over time. I have continued to work closely with the development team through that process, helping them understand the reasoning behind each fix and guiding them toward a cleaner, more accessible DOM structure.",
+      },
+      { type: "subheading", content: "Sample of output report" },
+      {
+        type: "carousel",
+        caption: "Some information redacted for client confidentiality purposes.",
+        images: [
+          { src: "/uploads/2026/01/Accessibility_Report_1.png", alt: "Accessibility report slide 1" },
+          { src: "/uploads/2026/01/Accessibility_Report_2.png", alt: "Accessibility report slide 2" },
+          { src: "/uploads/2026/01/Accessibility_Report_3.png", alt: "Accessibility report slide 3" },
+          { src: "/uploads/2026/01/Accessibility_Report_4.png", alt: "Accessibility report slide 4" },
+        ],
+      },
+      { type: "heading", content: "Impact" },
+      {
+        type: "paragraph",
+        content:
+          "This project did three things that mattered beyond the deliverable itself.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It gave the client a honest picture of where their site stood. A 71% automated compliance score and 16 criteria not supported is not a comfortable number, but it is an accurate one. Knowing the real state of things is the only way to improve.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It redirected the team away from a false solution. The widget conversation could have ended with the client implementing an overlay and believing the problem was solved. It did not. That outcome matters for the actual users of the site.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "And it contributed to a remediation roadmap the development team could act on. Accessibility work does not end with an audit. It starts there.",
+      },
+    ],
+    nextProject: {
+      name: "Ticket Transfer Redesign",
+      href: "/work/domore-ticket-transfer",
+      description: "UX Design, CX Strategy, User Research",
+    },
   },
 ];
 
